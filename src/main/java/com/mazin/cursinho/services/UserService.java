@@ -9,6 +9,7 @@ import java.util.Optional;
 import com.mazin.cursinho.entities.User;
 import com.mazin.cursinho.repositories.UserRepository;
 
+
 @Service //registering the class as a Spring service component
 public class UserService {
 
