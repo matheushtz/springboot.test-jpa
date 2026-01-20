@@ -1,8 +1,7 @@
 package com.mazin.cursinho.entities;
 import java.time.Instant;
 
-import com.fasterxml.jackson.annotation.JsonFormat;
-import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.mazin.cursinho.entities.OrderStatus;
 import com.mazin.cursinho.entities.User;
 
 import jakarta.persistence.Entity;
@@ -12,6 +11,9 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
+
+import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
 @Table(name = "tb_order")
@@ -26,6 +28,8 @@ public class Order implements java.io.Serializable {
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ss'Z'", timezone = "GMT")
     private Instant moment;
 
+    private Integer orderStatus;
+
     //@JsonIgnore
     @ManyToOne // Many orders can be associated with one user
     @JoinColumn(name = "client_id") // Foreign key column
@@ -34,9 +38,11 @@ public class Order implements java.io.Serializable {
     public Order() {
     }
 
-    public Order(Long id, Instant moment, User client) {
+    public Order(Long id, Instant moment, OrderStatus orderStatus, User client) {
         this.id = id;
         this.moment = moment;
+        setOrderStatus(orderStatus); // Use setter to handle enum conversion
+        //this.orderStatus = orderStatus.getCode();
         this.client = client;
     }
 
@@ -58,6 +64,14 @@ public class Order implements java.io.Serializable {
 
     public void setMoment(Instant moment) {
         this.moment = moment;
+    }
+
+    public OrderStatus getOrderStatus() {
+        return OrderStatus.valueOf(orderStatus); // Convert Integer to OrderStatus enum
+    }
+
+    public void setOrderStatus(OrderStatus orderStatus) {
+        this.orderStatus = orderStatus.getCode(); // Store the enum's code as Integer
     }
 
     public void setClient(User client) {
