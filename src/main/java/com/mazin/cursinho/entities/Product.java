@@ -1,11 +1,14 @@
 package com.mazin.cursinho.entities;
 
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinTable;
+import jakarta.persistence.ManyToMany;
 import jakarta.persistence.Table;
-import jakarta.persistence.Transient;
+import jakarta.persistence.JoinColumn;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -24,7 +27,8 @@ public class Product implements java.io.Serializable {
     private String description;
     private String imageUrl;
 
-    @Transient
+    @ManyToMany(fetch = FetchType.EAGER) //FetchType.EAGER para carregar as categorias junto com o produto
+    @JoinTable(name = "tb_product_category", joinColumns = @JoinColumn(name = "product_id"), inverseJoinColumns = @JoinColumn(name = "category_id"))
     private Set<Category> categories = new HashSet<>();
 
     public Product() {
@@ -76,6 +80,10 @@ public class Product implements java.io.Serializable {
 
     public void setImageUrl(String imageUrl) {
         this.imageUrl = imageUrl;
+    }
+
+    public Set<Category> getCategories() {
+        return categories;
     }
 
     @Override
