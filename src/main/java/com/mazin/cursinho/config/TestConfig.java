@@ -12,6 +12,8 @@ import com.mazin.cursinho.entities.Order;
 import com.mazin.cursinho.entities.User;
 import com.mazin.cursinho.entities.OrderStatus;
 import com.mazin.cursinho.entities.Category;
+import com.mazin.cursinho.repositories.ProductRepository;
+import com.mazin.cursinho.entities.Product;
 
 import java.time.Instant;
 import java.util.Arrays;
@@ -30,6 +32,9 @@ public class TestConfig implements CommandLineRunner {
     @Autowired
     private CategoryRepository categoryRepository;
 
+    @Autowired
+    private ProductRepository productRepository;
+
     @Override
     public void run(String... args) throws Exception {
         // Code to run at startup for the "test" profile
@@ -45,8 +50,15 @@ public class TestConfig implements CommandLineRunner {
         Category c2 = new Category(null, "Books");
         Category c3 = new Category(null, "Computers");
 
+        Product p1 = new Product(null, "The Lord of the Rings", 90.5, "A fantasy novel", "image1.jpg");
+        Product p2 = new Product(null, "Smart TV", 2190.0, "A 50-inch smart TV", "image2.jpg");
+        Product p3 = new Product(null, "Macbook Pro", 1250.0, "A laptop from Apple", "image3.jpg");
+        Product p4 = new Product(null, "PC Gamer", 1200.0, "A gaming PC", "image4.jpg");
+        Product p5 = new Product(null, "Rails for Dummies", 100.99, "A book on Rails", "image5.jpg");
+
         userRepository.saveAll(Arrays.asList(u1,u2));
         orderRepository.saveAll(Arrays.asList(o1,o2,o3));
         categoryRepository.saveAll(Arrays.asList(c1,c2,c3));
+        productRepository.saveAll(Arrays.asList(p1,p2,p3,p4,p5));
     }
 }

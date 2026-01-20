@@ -2,6 +2,7 @@ package com.mazin.cursinho.entities;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 import jakarta.persistence.Transient;
@@ -10,25 +11,31 @@ import java.util.HashSet;
 import java.util.Set;
 
 @Entity
-@Table(name = "tb_category")
-public class Category implements java.io.Serializable {
+@Table(name = "tb_product")
+public class Product implements java.io.Serializable {
 
     private static final long serialVersionUID = 1L;
 
     @Id
-    @GeneratedValue(strategy = jakarta.persistence.GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String name;
+    private Double price;
+    private String description;
+    private String imageUrl;
 
     @Transient
-    private Set<Product> products = new HashSet<>();
+    private Set<Category> categories = new HashSet<>();
 
-    public Category() {
-    }
+    public Product() {
+    }   
 
-    public Category(Long id, String name) {
+    public Product(Long id, String name, Double price, String description, String imageUrl) {
         this.id = id;
         this.name = name;
+        this.price = price;
+        this.description = description;
+        this.imageUrl = imageUrl;
     }
 
     public Long getId() {
@@ -47,15 +54,29 @@ public class Category implements java.io.Serializable {
         this.name = name;
     }
 
-    public Set<Product> getProducts() {
-        return products;
+    public Double getPrice() {
+        return price;
     }
 
-    // Coleções só tem o método get, para adicionar ou remover elementos usa-se os métodos da coleção
+    public void setPrice(Double price) {
+        this.price = price;
+    }
 
-    /*public void setProducts(Set<Product> products) {
-        this.products = products;
-    }*/
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public String getImageUrl() {
+        return imageUrl;
+    }
+
+    public void setImageUrl(String imageUrl) {
+        this.imageUrl = imageUrl;
+    }
 
     @Override
     public int hashCode() {
@@ -73,7 +94,7 @@ public class Category implements java.io.Serializable {
             return false;
         if (getClass() != obj.getClass())
             return false;
-        Category other = (Category) obj;
+        Product other = (Product) obj;
         if (id == null) {
             if (other.id != null)
                 return false;
@@ -81,8 +102,4 @@ public class Category implements java.io.Serializable {
             return false;
         return true;
     }
-
-    
-
-
 }
