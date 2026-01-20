@@ -6,24 +6,24 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 import java.util.Optional;
 
-import com.mazin.cursinho.entities.User;
-import com.mazin.cursinho.repositories.UserRepository;
+import com.mazin.cursinho.entities.Order;
+import com.mazin.cursinho.repositories.OrderRepository;
 
 import java.lang.Long;
 
 
 @Service //registering the class as a Spring service component
-public class UserService {
+public class OrderService {
 
     @Autowired //dependency injection
-    private UserRepository userRepository;
+    private OrderRepository orderRepository;
 
-    public List<User> findAll(){
-        return userRepository.findAll();
+    public List<Order> findAll(){
+        return orderRepository.findAll();
     }
 
-    public User findById(Long id){
-        Optional<User> obj = userRepository.findById(id);
+    public Order findById(Long id){
+        Optional<Order> obj = orderRepository.findById(id);
         return obj.get();   
     }
 

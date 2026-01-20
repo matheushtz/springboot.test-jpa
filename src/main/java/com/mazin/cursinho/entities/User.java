@@ -1,10 +1,17 @@
 package com.mazin.cursinho.entities;
+
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
+import com.mazin.cursinho.entities.Order;
 
 @Entity
 @Table(name = "tb_user")
@@ -18,6 +25,14 @@ public class User implements Serializable {
     private String email;
     private String phone;
     private String password;
+
+    @JsonIgnore
+    @OneToMany(mappedBy = "client") // One user can have many orders
+    private List<Order> orders = new ArrayList<>();
+
+    public List<Order> getOrders() {
+        return orders;
+    }
 
     // Constructors padrões e personalizados
     public User() {
