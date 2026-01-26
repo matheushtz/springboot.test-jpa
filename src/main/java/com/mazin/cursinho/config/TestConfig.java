@@ -9,15 +9,16 @@ import com.mazin.cursinho.repositories.CategoryRepository;
 import com.mazin.cursinho.repositories.OrderRepository;
 import com.mazin.cursinho.repositories.UserRepository;
 import com.mazin.cursinho.entities.Order;
+import com.mazin.cursinho.entities.OrderItem;
 import com.mazin.cursinho.entities.User;
 import com.mazin.cursinho.entities.OrderStatus;
 import com.mazin.cursinho.entities.Category;
 import com.mazin.cursinho.repositories.ProductRepository;
 import com.mazin.cursinho.entities.Product;
+import com.mazin.cursinho.repositories.OrderItemRepository;
 
 import java.time.Instant;
 import java.util.Arrays;
-
 
 @Configuration
 @Profile("test")
@@ -34,6 +35,9 @@ public class TestConfig implements CommandLineRunner {
 
     @Autowired
     private ProductRepository productRepository;
+
+    @Autowired
+    private OrderItemRepository orderItemRepository;
 
     @Override
     public void run(String... args) throws Exception {
@@ -62,10 +66,17 @@ public class TestConfig implements CommandLineRunner {
         p4.getCategories().add(c3);
         p5.getCategories().add(c2);
 
+        OrderItem oi1 = new OrderItem(o1, p1, 2, p1.getPrice());
+        OrderItem oi2 = new OrderItem(o1, p3, 1, p3.getPrice());
+        OrderItem oi3 = new OrderItem(o2, p3, 2, p3.getPrice());
+        OrderItem oi4 = new OrderItem(o3, p5, 2, p5.getPrice());
+
+        
         userRepository.saveAll(Arrays.asList(u1,u2));
         orderRepository.saveAll(Arrays.asList(o1,o2,o3));
         categoryRepository.saveAll(Arrays.asList(c1,c2,c3));
         productRepository.saveAll(Arrays.asList(p1,p2,p3,p4,p5));
+        orderItemRepository.saveAll(Arrays.asList(oi1, oi2, oi3, oi4));
 
     }
 }
