@@ -16,6 +16,7 @@ import com.mazin.cursinho.entities.Category;
 import com.mazin.cursinho.repositories.ProductRepository;
 import com.mazin.cursinho.entities.Product;
 import com.mazin.cursinho.repositories.OrderItemRepository;
+import com.mazin.cursinho.entities.Payment;
 
 import java.time.Instant;
 import java.util.Arrays;
@@ -46,31 +47,39 @@ public class TestConfig implements CommandLineRunner {
         User u1 = new User(null, "Clara", "clara@gmail.com", "123456789", "password1");
         User u2 = new User(null, "Miguel", "miguel@gmail.com", "987654321", "password2");
         
+        //creating orders
         Order o1 = new Order(null, Instant.parse("2026-01-20T01:53:08Z"), OrderStatus.PROCESSING, u1);
         Order o2 = new Order(null, Instant.parse("2026-01-20T02:53:08Z"), OrderStatus.PROCESSING, u2);
         Order o3 = new Order(null, Instant.parse("2026-01-20T03:53:08Z"), OrderStatus.PENDING_PAYMENT, u1);
         
+        //creating categories
         Category c1 = new Category(null, "Electronics");
         Category c2 = new Category(null, "Books");
         Category c3 = new Category(null, "Computers");
 
+        //creating products
         Product p1 = new Product(null, "The Lord of the Rings", 90.5, "A fantasy novel", "image1.jpg");
         Product p2 = new Product(null, "Smart TV", 2190.0, "A 50-inch smart TV", "image2.jpg");
         Product p3 = new Product(null, "Macbook Pro", 1250.0, "A laptop from Apple", "image3.jpg");
         Product p4 = new Product(null, "PC Gamer", 1200.0, "A gaming PC", "image4.jpg");
         Product p5 = new Product(null, "Rails for Dummies", 100.99, "A book on Rails", "image5.jpg");
 
+        //associating products with categories
         p1.getCategories().add(c2);
         p2.getCategories().add(c1);
         p3.getCategories().add(c3);
         p4.getCategories().add(c3);
         p5.getCategories().add(c2);
 
+        //creating order items
         OrderItem oi1 = new OrderItem(o1, p1, 2, p1.getPrice());
         OrderItem oi2 = new OrderItem(o1, p3, 1, p3.getPrice());
         OrderItem oi3 = new OrderItem(o2, p3, 2, p3.getPrice());
         OrderItem oi4 = new OrderItem(o3, p5, 2, p5.getPrice());
 
+        //adding payment to order o1
+        Payment py1 = new Payment(null, Instant.parse("2026-01-20T04:00:00Z"), o1);
+        o1.setPayment(py1);
         
         userRepository.saveAll(Arrays.asList(u1,u2));
         orderRepository.saveAll(Arrays.asList(o1,o2,o3));

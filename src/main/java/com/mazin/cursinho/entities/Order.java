@@ -14,6 +14,7 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
+import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
@@ -40,6 +41,9 @@ public class Order implements java.io.Serializable {
 
     @OneToMany(mappedBy = "id.order", fetch = FetchType.EAGER) // 'id' refers to OrderItemPK, 'order' is the field in OrderItemPK
     private Set<OrderItem> items = new HashSet<>();
+
+    @OneToOne(mappedBy = "order", cascade = jakarta.persistence.CascadeType.ALL) //cascade to propagate operations
+    private Payment payment;
 
     public Order() {
     }
@@ -82,6 +86,14 @@ public class Order implements java.io.Serializable {
 
     public void setClient(User client) {
         this.client = client;
+    }
+    
+    public Payment getPayment() {
+        return payment;
+    }
+
+    public void setPayment(Payment payment) {
+        this.payment = payment;
     }
 
     //get items
