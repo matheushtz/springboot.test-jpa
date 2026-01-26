@@ -12,7 +12,6 @@ import org.springframework.web.bind.annotation.RestController;
 import com.mazin.cursinho.entities.User;
 import com.mazin.cursinho.services.UserService;
 
-
 import java.util.List;
 import java.lang.Long;
 import java.net.URI;
@@ -21,7 +20,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
-
+import org.springframework.web.bind.annotation.PutMapping;
 
 @RestController
 @RequestMapping(value = "/users")
@@ -60,5 +59,11 @@ public class UserResource {
         
         //HTTP response 204 No Content
         return ResponseEntity.noContent().build();
+    }
+    @PutMapping(path = "/{id}")
+    public ResponseEntity<User> updateUser(@PathVariable Long id, @RequestBody User obj) {
+        
+        obj = service.update(id, obj);
+        return ResponseEntity.ok().body(obj);
     }
 }

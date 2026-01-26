@@ -36,4 +36,19 @@ public class UserService {
     public void delete(Long id){
         userRepository.deleteById(id);
     }
+
+    //method to update a User
+    public User update(Long id, User obj){
+        User entity = userRepository.findById(id).get();
+        updateData(entity, obj); //helper method to update fields
+        return userRepository.save(entity);
+    }
+
+    //helper method to update entity data
+    private void updateData(User entity, User obj){
+        entity.setName(obj.getName());
+        entity.setEmail(obj.getEmail());
+        entity.setPhone(obj.getPhone());
+        //id is not updated to preserve entity identity
+    }
 }
