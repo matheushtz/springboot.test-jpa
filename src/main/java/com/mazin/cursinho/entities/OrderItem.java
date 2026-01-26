@@ -63,6 +63,11 @@ public class OrderItem implements java.io.Serializable {
         this.price = price;
     }
 
+    //calculate subtotal for this item (PRECISA conter o get para o Jackson serializar)
+    public Double getSubTotal() {
+        return price * quantity;
+    }
+
     @Override
     public int hashCode() {
         final int prime = 31;

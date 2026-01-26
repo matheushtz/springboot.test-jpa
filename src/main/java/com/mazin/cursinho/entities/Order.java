@@ -101,6 +101,15 @@ public class Order implements java.io.Serializable {
         return items;
     }
 
+    //calculate total amount of the order (PRECISA iniciar com "get" para o Jackson serializar)
+    public Double getTotal() {
+        double sum = 0.0;
+        for (OrderItem x : items) {
+            sum += x.getSubTotal();
+        }
+        return sum;
+    }
+
     @Override
     public int hashCode() {
         final int prime = 31;

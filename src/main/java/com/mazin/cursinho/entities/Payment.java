@@ -22,6 +22,7 @@ public class Payment implements java.io.Serializable {
     private Long id;
     private Instant moment;
 
+    @JsonIgnore
     @OneToOne
     @MapsId //to share the primary key with Order
     private Order order;
@@ -51,7 +52,7 @@ public class Payment implements java.io.Serializable {
         this.moment = moment;
     }
 
-    @JsonIgnore //to prevent infinite recursion during serialization
+    @JsonIgnore
     public Order getOrder() {
         return order;
     }
