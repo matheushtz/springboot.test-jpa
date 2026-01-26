@@ -38,7 +38,8 @@ public class OrderItem implements java.io.Serializable {
         id.setOrder(order);
     }
 
-        public Product getProduct() {
+    //@JsonIgnore // Uncomment if you want to ignore product in serialization
+    public Product getProduct() {
         return id.getProduct();
     }
 

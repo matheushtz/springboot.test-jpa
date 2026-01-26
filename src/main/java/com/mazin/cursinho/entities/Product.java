@@ -9,9 +9,12 @@ import jakarta.persistence.JoinTable;
 import jakarta.persistence.ManyToMany;
 import jakarta.persistence.Table;
 import jakarta.persistence.JoinColumn;
+import jakarta.persistence.OneToMany;
 
 import java.util.HashSet;
 import java.util.Set;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
 @Table(name = "tb_product")
@@ -27,11 +30,14 @@ public class Product implements java.io.Serializable {
     private String description;
     private String imageUrl;
 
+    // Many-to-many relationship with Category
     @ManyToMany(fetch = FetchType.EAGER) //FetchType.EAGER para carregar as categorias junto com o produto
     @JoinTable(name = "tb_product_category", joinColumns = @JoinColumn(name = "product_id"), inverseJoinColumns = @JoinColumn(name = "category_id"))
     private Set<Category> categories = new HashSet<>();
 
-    //private Set<OrderItem> items = new HashSet<>();
+    // Bidirectional one-to-many relationship with OrderItem (eagerly fetch to avoid lazy loading issues)
+    @OneToMany(mappedBy = "id.product", fetch = FetchType.EAGER)
+    private Set<OrderItem> items = new HashSet<>();
 
     public Product() {
     }   
@@ -43,6 +49,17 @@ public class Product implements java.io.Serializable {
         this.description = description;
         this.imageUrl = imageUrl;
     }
+
+    // Method to get associated orders through order items
+    @JsonIgnore //to prevent serialization issues
+    public Set<Order> getOrders() {
+        Set<Order> setOrders = new HashSet<>();
+        for (OrderItem x : items) {
+            setOrders.add(x.getOrder());
+        }
+        return setOrders;
+    }
+
 
     public Long getId() {
         return id;
