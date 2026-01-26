@@ -9,6 +9,8 @@ import java.util.Optional;
 import com.mazin.cursinho.entities.User;
 import com.mazin.cursinho.repositories.UserRepository;
 
+
+import com.mazin.cursinho.services.exceptions.ResourceNotFoundException;
 import java.lang.Long;
 
 
@@ -24,7 +26,8 @@ public class UserService {
 
     public User findById(Long id){
         Optional<User> obj = userRepository.findById(id);
-        return obj.get();   
+        //throw exception if user not found
+        return obj.orElseThrow(() -> new ResourceNotFoundException(id));
     }
 
     //method to insert a new User
