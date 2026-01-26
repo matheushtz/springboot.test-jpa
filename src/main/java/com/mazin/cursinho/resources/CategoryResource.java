@@ -11,10 +11,8 @@ import org.springframework.web.bind.annotation.RestController;
 import com.mazin.cursinho.entities.Category;
 import com.mazin.cursinho.services.CategoryService;
 
-
 import java.util.List;
 import java.lang.Long;
-
 
 @RestController
 @RequestMapping(value = "/categories")
@@ -27,7 +25,6 @@ public class CategoryResource {
     public ResponseEntity<List<Category>> findall(){
         List<Category> list = service.findAll();
         return ResponseEntity.ok().body(list);
-
     }
 
     @GetMapping(value = "/{id}")

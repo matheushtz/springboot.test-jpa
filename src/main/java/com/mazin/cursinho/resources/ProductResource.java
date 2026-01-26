@@ -11,10 +11,8 @@ import org.springframework.web.bind.annotation.RestController;
 import com.mazin.cursinho.entities.Product;
 import com.mazin.cursinho.services.ProductService;
 
-
 import java.util.List;
 import java.lang.Long;
-
 
 @RestController
 @RequestMapping(value = "/products")
@@ -27,7 +25,6 @@ public class ProductResource {
     public ResponseEntity<List<Product>> findall(){
         List<Product> list = service.findAll();
         return ResponseEntity.ok().body(list);
-
     }
 
     @GetMapping(value = "/{id}")

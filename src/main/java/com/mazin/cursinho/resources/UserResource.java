@@ -48,7 +48,7 @@ public class UserResource {
 
         //HTTP response 201 ao criar o usuario
         return ResponseEntity.created(uri).body(obj);
-
+        
         //HTTP response 200 ao criar o usuario
         //return ResponseEntity.ok().body(obj);
     }

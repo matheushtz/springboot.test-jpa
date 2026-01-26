@@ -1,7 +1,6 @@
 package com.mazin.cursinho.resources.exceptions;
 
 import java.time.Instant;
-
 import com.fasterxml.jackson.annotation.JsonFormat;
 
 public class StardandError implements java.io.Serializable {
@@ -68,7 +67,4 @@ public class StardandError implements java.io.Serializable {
     public void setPath(String path) {
         this.path = path;
     }
-
-    
-
 }

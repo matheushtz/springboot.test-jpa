@@ -11,10 +11,8 @@ import org.springframework.web.bind.annotation.RestController;
 import com.mazin.cursinho.entities.Order;
 import com.mazin.cursinho.services.OrderService;
 
-
 import java.util.List;
 import java.lang.Long;
-
 
 @RestController
 @RequestMapping(value = "/orders")
@@ -27,7 +25,6 @@ public class OrderResource {
     public ResponseEntity<List<Order>> findall(){
         List<Order> list = service.findAll();
         return ResponseEntity.ok().body(list);
-
     }
 
     @GetMapping(value = "/{id}")
