@@ -1,0 +1,11 @@
+Insert User:
+
+{
+    "name": "Bob Brown",
+    "email": "bob@gmail.com",
+    "phone": "977557755",
+    "password": "senha123"
+}
+
+
+
