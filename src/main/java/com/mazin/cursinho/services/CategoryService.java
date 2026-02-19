@@ -11,7 +11,6 @@ import com.mazin.cursinho.repositories.CategoryRepository;
 
 import java.lang.Long;
 
-
 @Service //registering the class as a Spring service component
 public class CategoryService {
 
