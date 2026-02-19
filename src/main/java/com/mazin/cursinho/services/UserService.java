@@ -1,6 +1,8 @@
 package com.mazin.cursinho.services;
 
+import org.hibernate.exception.ConstraintViolationException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Service;
 
@@ -9,8 +11,7 @@ import java.util.Optional;
 
 import com.mazin.cursinho.entities.User;
 import com.mazin.cursinho.repositories.UserRepository;
-
-
+import com.mazin.cursinho.services.exceptions.ResourceDeletionBlocked;
 import com.mazin.cursinho.services.exceptions.ResourceNotFoundException;
 import java.lang.Long;
 
@@ -39,7 +40,11 @@ public class UserService {
     //method to delete a User by id
     public void delete(Long id){
         findById(id); // throws ResourceNotFoundException if user doesn't exist
-        userRepository.deleteById(id);
+        try{ 
+            userRepository.deleteById(id);
+        } catch(DataIntegrityViolationException e){
+            throw new ResourceDeletionBlocked(id);
+        }
     }
 
     //method to update a User
