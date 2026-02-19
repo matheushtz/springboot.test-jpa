@@ -11,8 +11,6 @@ import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
-import com.mazin.cursinho.entities.Order;
-
 @Entity
 @Table(name = "tb_user")
 public class User implements Serializable {

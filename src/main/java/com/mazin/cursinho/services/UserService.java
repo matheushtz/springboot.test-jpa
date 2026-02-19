@@ -1,9 +1,9 @@
 package com.mazin.cursinho.services;
 
-import org.hibernate.exception.ConstraintViolationException;
+//import org.hibernate.exception.ConstraintViolationException;
+//import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
-import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -49,6 +49,7 @@ public class UserService {
 
     //method to update a User
     public User update(Long id, User obj){
+        findById(id); // throws ResourceNotFoundException if user doesn't exist
         User entity = userRepository.findById(id).get();
         updateData(entity, obj); //helper method to update fields
         return userRepository.save(entity);
